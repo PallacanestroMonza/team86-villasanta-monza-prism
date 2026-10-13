@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Regia | Team 86 Villasanta - Pallacanestro Monza</title>
+<style>
+:root{--bg:#07111d;--panel:#0e1d31;--muted:#9db1c9;--blue:#26378f;--gold:#ffd91a;--red:#d7233f;--green:#16a05d;--danger:#a52c3c}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#08111d,#0b1624 60%,#07111d);color:#fff;font-family:Arial,Helvetica,sans-serif;min-height:100vh}.shell{max-width:1180px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}h1{font-size:20px;margin:0}.conn{font-size:13px;font-weight:900;padding:8px 11px;border-radius:999px;background:#263246}.conn.ok{background:#103d2a;color:#91f4bd}.conn.bad{background:#4a1e26;color:#ff9aaa}
+.score-preview{display:grid;grid-template-columns:1fr 190px 1fr;border-radius:16px;overflow:hidden;margin-bottom:16px;box-shadow:0 10px 28px rgba(0,0,0,.25)}.team-preview{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;min-width:0}.team-preview.home{background:linear-gradient(135deg,var(--blue),#17215a);border-bottom:7px solid var(--gold)}.team-preview.away{background:linear-gradient(135deg,#e52f45,#9f1028);border-bottom:7px solid #fff}.team-preview .nm{font-weight:950;font-size:18px;line-height:1.05}.team-preview .line{display:block}.team-preview .sc{font-size:46px;font-weight:950}.center-preview{background:#0b1728;display:grid;place-items:center;text-align:center}.center-preview .prd{font-size:12px;font-weight:900;letter-spacing:1px}.center-preview .clk{font-size:38px;font-weight:950}.center-preview .sts{font-size:10px;font-weight:900;letter-spacing:1.2px;opacity:.8}
+.grid{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:16px}.panel{background:rgba(14,29,49,.96);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:18px;box-shadow:0 8px 25px rgba(0,0,0,.18)}.panel h2{margin:0 0 14px;font-size:16px}.home-panel h2{color:#ffe45a}.away-panel h2{color:#ff98a9}.clock-panel h2{color:#b9d3ff}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}.label{font-size:13px;color:var(--muted);font-weight:800;min-width:80px}button{border:0;border-radius:10px;background:#1d3552;color:#fff;font-weight:900;padding:12px 14px;cursor:pointer;font-size:15px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}button:hover{filter:brightness(1.12)}button:active{transform:translateY(1px)}.scorebtn{min-width:58px;font-size:16px}.primary{background:var(--green);flex:1}.secondary{background:#203a5b}.danger{background:var(--danger)}.yellow{background:#8b7114}.wide{width:100%}
+input,select{background:#081522;color:#fff;border:1px solid #294664;border-radius:9px;padding:10px 11px;font-size:15px;font-weight:800}input[type=number]{width:82px}.clockbig{text-align:center;font-size:52px;font-weight:950;margin:8px 0 14px}.small{font-size:12px;color:var(--muted);line-height:1.5;margin-top:14px}.footer{margin-top:16px;display:flex;gap:10px;justify-content:space-between;align-items:center}.footer .left,.footer .right{display:flex;gap:10px;flex-wrap:wrap}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.score-preview{grid-template-columns:1fr 150px 1fr}.team-preview{padding:14px}.team-preview .nm{font-size:16px}.team-preview .sc{font-size:40px}.center-preview .clk{font-size:32px}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="top"><h1>REGIA · TEAM 86 VILLASANTA / PALLACANESTRO MONZA</h1><div id="conn" class="conn">Connessione…</div></div>
+  <div class="score-preview">
+    <div class="team-preview home"><div><div class="nm"><span class="line">TEAM 86</span><span class="line">VILLASANTA</span></div><div style="font-size:12px;margin-top:6px">FALLI <span id="pHF">0</span> · T.O. <span id="pHT">0</span></div></div><div class="sc" id="pHS">0</div></div>
+    <div class="center-preview"><div><div class="prd" id="pPeriod">1° QUARTO</div><div class="clk" id="pClock">10:00</div><div class="sts" id="pStatus">IN PAUSA</div></div></div>
+    <div class="team-preview away"><div class="sc" id="pAS">0</div><div style="text-align:right"><div class="nm"><span class="line">PALLACANESTRO</span><span class="line">MONZA</span></div><div style="font-size:12px;margin-top:6px">FALLI <span id="pAF">0</span> · T.O. <span id="pAT">0</span></div></div></div>
+  </div>
+  <div class="grid">
+    <section class="panel home-panel"><h2>TEAM 86 VILLASANTA</h2>
+      <div class="row"><button class="scorebtn" onclick="add('homeScore',1)">+1</button><button class="scorebtn" onclick="add('homeScore',2)">+2</button><button class="scorebtn" onclick="add('homeScore',3)">+3</button><button class="scorebtn" onclick="add('homeScore',-1)">−1</button></div>
+      <div class="row"><span class="label">Falli</span><button onclick="add('homeFouls',-1)">−</button><button onclick="add('homeFouls',1)">+</button><strong id="homeFoulsVal">0</strong></div>
+      <div class="row"><span class="label">Timeout</span><button onclick="add('homeTimeouts',-1)">−</button><button onclick="add('homeTimeouts',1)">+</button><strong id="homeTimeoutsVal">0</strong></div>
+    </section>
+    <section class="panel clock-panel"><h2>CRONOMETRO</h2><div class="clockbig" id="bigClock">10:00</div>
+      <div class="row"><button id="toggleBtn" class="primary" onclick="toggleClock()">▶ Avvia</button><button class="secondary" onclick="resetClock()">↺ 10:00</button></div>
+      <div class="row"><span class="label">Imposta</span><input id="mins" type="number" min="0" max="99" value="10"><span>:</span><input id="secs" type="number" min="0" max="59" value="0"><button onclick="setClockFromInputs()">Imposta</button></div>
+      <div class="row"><span class="label">Quarto</span><select id="periodSelect" onchange="setPeriod(Number(this.value))"><option value="1">1° quarto</option><option value="2">2° quarto</option><option value="3">3° quarto</option><option value="4">4° quarto</option><option value="5">OT 1</option><option value="6">OT 2</option><option value="7">OT 3</option></select></div>
+      <button class="wide yellow" onclick="nextPeriod()">Quarto successivo →</button><div class="small"><b>Scorciatoia:</b> barra spaziatrice = avvia/pausa. Il timer resta sincronizzato anche se aggiorni la pagina.</div>
+    </section>
+    <section class="panel away-panel"><h2>PALLACANESTRO MONZA</h2>
+      <div class="row"><button class="scorebtn" onclick="add('awayScore',1)">+1</button><button class="scorebtn" onclick="add('awayScore',2)">+2</button><button class="scorebtn" onclick="add('awayScore',3)">+3</button><button class="scorebtn" onclick="add('awayScore',-1)">−1</button></div>
+      <div class="row"><span class="label">Falli</span><button onclick="add('awayFouls',-1)">−</button><button onclick="add('awayFouls',1)">+</button><strong id="awayFoulsVal">0</strong></div>
+      <div class="row"><span class="label">Timeout</span><button onclick="add('awayTimeouts',-1)">−</button><button onclick="add('awayTimeouts',1)">+</button><strong id="awayTimeoutsVal">0</strong></div>
+    </section>
+  </div>
+  <div class="footer"><div class="left"><button class="danger" onclick="newGame()">Nuova partita</button></div><div class="right"><button onclick="stopClock()">Ferma timer</button></div></div>
+</div>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+<script>
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAysJGD5jBnTEPY1lSlvk9yRfTXtyVZHwU",
+  authDomain: "tabellone-monza-agrate-3f7a1.firebaseapp.com",
+  databaseURL: "https://tabellone-monza-agrate-3f7a1-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "tabellone-monza-agrate-3f7a1",
+  storageBucket: "tabellone-monza-agrate-3f7a1.firebasestorage.app",
+  messagingSenderId: "1065515511910",
+  appId: "1:1065515511910:web:c2939024b149145b4dbda7"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db=firebase.database();
+const ref=db.ref('scoreboards/team86-villasanta-monza/live');
+const DEFAULT_STATE={homeScore:0,awayScore:0,homeFouls:0,awayFouls:0,homeTimeouts:0,awayTimeouts:0,period:1,clock:600,running:false,startedAt:null};
+let state={...DEFAULT_STATE};let serverOffset=0;
+db.ref('.info/serverTimeOffset').on('value',s=>serverOffset=s.val()||0);
+db.ref('.info/connected').on('value',s=>{const el=document.getElementById('conn');if(s.val()===true){el.textContent='● Firebase connesso';el.className='conn ok'}else{el.textContent='● Non connesso';el.className='conn bad'}});
+ref.transaction(cur=>cur||DEFAULT_STATE).catch(showError);
+ref.on('value',snap=>{if(snap.exists())state={...DEFAULT_STATE,...snap.val()};render()},showError);
+function showError(err){console.error(err);const el=document.getElementById('conn');el.textContent='Errore Firebase: controlla le regole';el.className='conn bad'}
+function nowServer(){return Date.now()+serverOffset}function remainingSeconds(){let r=Number(state.clock??600);if(state.running&&state.startedAt)r-=Math.floor((nowServer()-state.startedAt)/1000);return Math.max(0,r)}function fmt(sec){sec=Math.max(0,Math.floor(sec));return `${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`}function periodLabel(p){return p<=4?`${p}° QUARTO`:`OT ${p-4}`}
+function render(){const rem=remainingSeconds();pHS.textContent=state.homeScore;pAS.textContent=state.awayScore;pHF.textContent=state.homeFouls;pAF.textContent=state.awayFouls;pHT.textContent=state.homeTimeouts;pAT.textContent=state.awayTimeouts;pPeriod.textContent=periodLabel(Number(state.period||1));pClock.textContent=fmt(rem);pStatus.textContent=state.running&&rem>0?'IN CORSO':'IN PAUSA';bigClock.textContent=fmt(rem);homeFoulsVal.textContent=state.homeFouls;awayFoulsVal.textContent=state.awayFouls;homeTimeoutsVal.textContent=state.homeTimeouts;awayTimeoutsVal.textContent=state.awayTimeouts;periodSelect.value=String(state.period||1);toggleBtn.textContent=state.running&&rem>0?'❚❚ Pausa':'▶ Avvia';if(state.running&&rem<=0)ref.update({clock:0,running:false,startedAt:null}).catch(showError)}
+setInterval(render,200);
+function add(field,delta){ref.child(field).transaction(v=>Math.max(0,Number(v||0)+delta)).catch(showError)}
+async function toggleClock(){const rem=remainingSeconds();if(state.running)await ref.update({clock:rem,running:false,startedAt:null}).catch(showError);else if(rem>0)await ref.update({clock:rem,running:true,startedAt:firebase.database.ServerValue.TIMESTAMP}).catch(showError)}
+function stopClock(){const rem=remainingSeconds();return ref.update({clock:rem,running:false,startedAt:null}).catch(showError)}function resetClock(){return ref.update({clock:600,running:false,startedAt:null}).catch(showError)}function setClockFromInputs(){const m=Math.max(0,Number(document.getElementById('mins').value||0));const s=Math.min(59,Math.max(0,Number(document.getElementById('secs').value||0)));return ref.update({clock:m*60+s,running:false,startedAt:null}).catch(showError)}function setPeriod(p){return ref.update({period:p,running:false,startedAt:null}).catch(showError)}function nextPeriod(){const next=Math.min(7,Number(state.period||1)+1);const duration=next<=4?600:300;return ref.update({period:next,clock:duration,running:false,startedAt:null,homeFouls:0,awayFouls:0}).catch(showError)}function newGame(){if(!confirm('Azzerare punteggio, falli, timeout, quarto e cronometro?'))return;return ref.set(DEFAULT_STATE).catch(showError)}
+document.addEventListener('keydown',e=>{if(e.code==='Space'&&!['INPUT','SELECT','TEXTAREA','BUTTON'].includes(document.activeElement.tagName)){e.preventDefault();toggleClock()}});
+</script>
+</body>
+</html>
